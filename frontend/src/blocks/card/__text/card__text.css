@@ -1,0 +1,8 @@
+.card__text {
+  padding: 25px 16px 31px 21px;
+  justify-content: space-between;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}

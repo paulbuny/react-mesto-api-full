@@ -1,0 +1,20 @@
+.button {
+  padding: 0;
+  min-width: 100%;
+  min-height: 50px;
+  font-family: "Inter", helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 1.21;
+  font-weight: 400;
+  background-color: #000;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 2px;
+  box-sizing: border-box;
+  transition: opacity 0.25s ease-in-out;
+  cursor: pointer;
+}
+
+.button:focus {
+  outline: none;
+}

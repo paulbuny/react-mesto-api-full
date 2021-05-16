@@ -1,0 +1,8 @@
+.header__wrapper-link {
+  display: flex;
+  align-self: center;
+  max-width: fit-content;
+  font-size: 18px;
+  line-height: 1.222;
+  color: #A9A9A9;
+}

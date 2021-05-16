@@ -1,0 +1,12 @@
+.popup__close {
+  position: absolute;
+  top: calc(0px - 27px - 30px);
+  right: calc(100% / 2 - 15px);
+}
+
+@media screen and (min-width: 880px) {
+  .popup__close {
+    top: calc(0px - 40px);
+    right: calc(0px - 40px);
+  }
+}

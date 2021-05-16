@@ -1,0 +1,12 @@
+.header__nav {
+  grid-area: ui;
+  align-self: center;
+  justify-self: flex-end;
+  margin-right: 30px;
+}
+
+@media screen and (min-width: 880px) {
+  .header__nav {
+    display: none;
+  }
+}

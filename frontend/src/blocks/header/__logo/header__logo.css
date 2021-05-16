@@ -1,0 +1,12 @@
+.header__logo {
+  grid-area: logo;
+  max-height: 24.4px;
+  margin: 28px 0 31.6px 27px;
+}
+
+@media screen and (min-width: 880px) {
+  .header__logo {
+    margin: 45px 0 41px;
+    max-height: 33px;
+  }
+}

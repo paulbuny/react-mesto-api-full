@@ -1,0 +1,28 @@
+.button__white_theme {
+  background: #FFFFFF;
+  border-radius: 2px;
+  box-sizing: border-box;
+
+  min-height: 46px;
+  font-family: Inter, helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 1.1875;
+  text-align: center;
+
+  color: #000000;
+  opacity: 1;
+  transition: opacity .25s ease-in-out;
+}
+
+@media screen and (min-width: 880px){
+  .button__white_theme {
+    min-height: 50px;
+    font-size: 18px;
+  }
+}
+
+.button__white_theme:hover {
+  opacity: .85;
+}

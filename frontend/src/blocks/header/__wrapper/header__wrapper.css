@@ -1,0 +1,28 @@
+.header__wrapper {
+  display: flex;
+  padding: 40px 0 40px 0;
+  height: fit-content;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-items: center;
+  grid-area: user;
+  border-bottom: 1px solid rgba(84, 84, 84, 1);
+}
+
+@media screen and (min-width: 880px) {
+  .header__wrapper {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    border-bottom: none;
+  }
+}
+
+@media screen and (min-width: 880px) {
+  .header__wrapper{
+    padding: 0;
+    display: flex;
+    align-self: center;
+    grid-area: ui;
+  }
+}

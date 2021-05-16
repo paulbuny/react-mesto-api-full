@@ -1,0 +1,22 @@
+.button__close {
+  min-height: 30px;
+  min-width: 30px;
+  color: transparent;
+  border: none;
+  background-image: url("../../../images/close_button.svg");
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+}
+
+.button__close:hover {
+  opacity: 0.6;
+}
+
+@media screen and (min-width: 880px) {
+  .button__close {
+    min-width: 40px;
+    min-height: 40px;
+  }
+}

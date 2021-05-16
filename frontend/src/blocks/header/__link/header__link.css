@@ -1,0 +1,20 @@
+.header__link {
+  grid-area: ui;
+  display: flex;
+  height: fit-content;
+  width: fit-content;
+  flex-direction: row;
+  align-self: center;
+  justify-self: flex-end;
+  margin: 0 30px 0 0;
+  font-size: 14px;
+  line-height: 1.222;
+  text-align: center;
+}
+
+@media screen and (min-width: 880px) {
+  .header__link {
+    margin: 0;
+    font-size: 18px;
+  }
+}

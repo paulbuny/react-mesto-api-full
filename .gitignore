@@ -1,0 +1,6 @@
+/frontend/node_modules
+/frontend/.idea
+/backend/.idea
+/backend/node_modules
+/backend/*.log
+/backend/.env

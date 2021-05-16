@@ -1,0 +1,16 @@
+.card__like {
+  display: flex;
+  justify-self: flex-end;
+  min-width: 20px;
+  min-height: 18px;
+  border: none;
+  background-image: url("../../../images/like_button.svg");
+  background-color: transparent;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.card__like:hover {
+  opacity: .5;
+}

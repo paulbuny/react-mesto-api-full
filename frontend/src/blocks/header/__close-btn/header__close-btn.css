@@ -1,0 +1,16 @@
+.header__close-btn {
+  display: flex;
+  align-self: center;
+  min-width: 30px;
+}
+
+.header__close-btn:hover {
+  opacity: 0.6;
+}
+
+@media screen and (min-width: 880px) {
+  .header__close-btn {
+    width: 40px;
+    height: 40px;
+  }
+}
