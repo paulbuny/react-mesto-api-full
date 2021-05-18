@@ -54,24 +54,27 @@ function App() {
     //Стейт переменная статуса авторизации пользователя
     const [loggedIn, setLoggedIn] = useState(false);
 
+    //Стейт переменная localStorage
+    const [token, setToken] = useState(`Bearer ${localStorage.getItem('token')}`);
+
     //Переменная с логами истории
     let history = useHistory(true);
 
     //Получение данных о пользователе с сервера
     useEffect(() => {
-        api.getUserInformation()
+        api.getUserInformation(token)
             .then((data) => {
                 setCurrentUser(data);
             })
             .catch(console.error)
-    }, [])
+    }, [token])
 
     //Получение массива карточек с сервера
     useEffect(() => {
-        api.getInitialCards()
-            .then((cards) => setCards(cards))
+        api.getInitialCards(token)
+            .then((cards) => setCards(cards.reverse()))
             .catch(console.error)
-    }, []);
+    }, [token]);
 
     //Функция проверки токена пользователя
     function checkToken() {
@@ -79,7 +82,7 @@ function App() {
         if (token) {
             auth.getToken(token)
                 .then((res) => {
-                    setUserEmail(res.data.email);
+                    setUserEmail(res.email);
                     if (res) {
                         setLoggedIn(true);
                     }
@@ -107,13 +110,19 @@ function App() {
     function handleSignIn(email, password) {
         auth.signIn(email, password)
             .then((res) => {
-              console.log(`### fn SignIn ${res}`)
-
-                setUserEmail(email);
+              if (res) {
                 localStorage.setItem('token', res);
+                setUserEmail(email);
+                setToken(`Bearer ${res}`);
                 setLoggedIn(true);
 
                 history.push('/');
+              } else {
+                setInfoTooltip({
+                  isOpen: true,
+                  isSucceed: false,
+              })
+              }
             })
             .catch(() => {
                 setInfoTooltip({
@@ -143,18 +152,18 @@ function App() {
 
     //Функция обработки Лайка карточки
     function handleCardLike(card) {
-        const isLiked = card.likes.some(i => i._id === currentUser._id);
+        const isLiked = card.likes.some(i => i === currentUser._id);
 
-        api.changeLikeCardStatus(card._id, !isLiked)
+        api.changeLikeCardStatus(card._id, !isLiked, token)
             .then((newCard) => {
                 setCards((state) => state.map((c) => c._id === card._id ? newCard : c))
             })
-            .catch(console.error)
+            .catch(console.error);
     }
 
     //Функция обработки удаления карточки
     function handleDeleteCard(card) {
-        api.deleteCard(card._id)
+        api.deleteCard(card._id, token)
             .then(() => {
                 setCards((state) => state.filter((res) => res !== card))
             })
@@ -198,7 +207,7 @@ function App() {
 
     //Функция обновления данных пользователя
     function handleUpdateUser(data) {
-        api.saveUserInformation({name: data.name, about: data.about})
+        api.saveUserInformation({name: data.name, about: data.about, token: token})
             .then((res) => setCurrentUser(res))
             .catch(console.error)
             .finally(() => closeAllPopups());
@@ -206,7 +215,7 @@ function App() {
 
     //Функция обновления аватара пользователя
     function handleUpdateAvatar(data) {
-        api.changeUserAvatar(data.avatar)
+        api.changeUserAvatar(data.avatar, token)
             .then((res) => setCurrentUser(res))
             .catch(console.error)
             .finally(() => closeAllPopups())
@@ -214,7 +223,7 @@ function App() {
 
     //Функция добавления новой карточки
     function handleAddPlaceSubmit(data) {
-        api.addNewCard({name: data.name, link: data.link})
+        api.addNewCard({name: data.name, link: data.link, token: token})
             .then((newCard) => setCards([newCard, ...cards]))
             .catch(console.error)
             .finally(()=>closeAllPopups())

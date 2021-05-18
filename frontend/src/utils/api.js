@@ -1,7 +1,6 @@
 class Api {
-    constructor({url, token}) {
+    constructor({url}) {
         this._url = url;
-        this._token = token;
     }
 
     _getResponseStatus (res) {
@@ -12,11 +11,12 @@ class Api {
         }
     }
 
-    getInitialCards () {
+    getInitialCards (token) {
         return fetch(`${this._url}/cards`, {
             method: 'GET',
             headers: {
-                authorization: this._token,
+                'Authorization': token,
+                'Content-Type': 'application/json',
             }
         })
             .then((res) => {
@@ -24,11 +24,11 @@ class Api {
             });
     }
 
-    addNewCard ({ name, link }) {
+    addNewCard ({ name, link, token }) {
         return fetch(`${this._url}/cards`, {
             method: 'POST',
             headers: {
-                authorization: this._token,
+                'Authorization': token,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -41,11 +41,11 @@ class Api {
             });
     }
 
-    deleteCard (cardId) {
+    deleteCard (cardId, token) {
         return fetch(`${this._url}/cards/${cardId}`, {
             method: 'DELETE',
             headers: {
-                authorization: this._token,
+                'Authorization': token,
                 'Content-Type': 'application/json',
             },
         })
@@ -54,51 +54,48 @@ class Api {
             });
     }
 
-    addLike (cardId) {
-        return fetch(`${this._url}/cards/likes/${cardId}`, {
+    addLike (cardId, token) {
+        return fetch(`${this._url}/cards/${cardId}/likes/`, {
             method: 'PUT',
             headers: {
-                authorization: this._token,
+                'Authorization': token,
                 'Content-Type': 'application/json',
-            }
-        })
-            .then((res) => {
-                return this._getResponseStatus(res);
-            });
-    }
-
-    removeLike (cardId) {
-        return fetch(`${this._url}/cards/likes/${cardId}`, {
-            method: 'DELETE',
-            headers: {
-                authorization: this._token,
-                'Content-Type': 'application/json',
-            }
-        })
-            .then((res) => {
-                return this._getResponseStatus(res);
-            });
-    }
-
-    changeLikeCardStatus(cardId, isLiked) {
-        return isLiked ? this.addLike(cardId) : this.removeLike(cardId);
-    }
-
-    getUserInformation () {
-        return fetch(`${this._url}/users/me`, {
-            headers: {
-                method: 'GET',
-                authorization: this._token,
             }
         })
             .then((res) => this._getResponseStatus(res));
     }
 
-    saveUserInformation ({ name, about }) {
+    removeLike (cardId, token) {
+        return fetch(`${this._url}/cards/${cardId}/likes/`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json',
+            }
+        })
+            .then((res) => this._getResponseStatus(res));
+    }
+
+    changeLikeCardStatus(cardId, isLiked, token) {
+        return isLiked ? this.addLike(cardId, token) : this.removeLike(cardId, token);
+    }
+
+    getUserInformation (token) {
+        return fetch(`${this._url}/users/me`, {
+          method: 'GET',
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((res) => this._getResponseStatus(res));
+    }
+
+    saveUserInformation ({ name, about, token }) {
         return fetch(`${this._url}/users/me`, {
             method: 'PATCH',
             headers: {
-                authorization: this._token,
+                'Authorization': token,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -111,11 +108,11 @@ class Api {
             });
     }
 
-    changeUserAvatar (link) {
+    changeUserAvatar (link, token) {
         return fetch(`${this._url}/users/me/avatar`, {
             method: 'PATCH',
             headers: {
-                authorization: this._token,
+                'Authorization': token,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -130,7 +127,6 @@ class Api {
 
 const api = new Api({
   url: 'http://localhost:3005',
-  token: `Bearer ${localStorage.getItem('token')}`,
-})
+});
 
 export default api

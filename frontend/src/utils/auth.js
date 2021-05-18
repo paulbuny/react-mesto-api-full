@@ -18,7 +18,8 @@ class Auth {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ email, password })
-        }).then((res) => this._getResponseStatus(res));
+        }).then((res) => this._getResponseStatus(res))
+        .catch((err) => console.log(err));
     }
 
     signIn (email, password) {
@@ -32,8 +33,6 @@ class Auth {
           return res.json();
         })
         .then((res) => {
-          localStorage.setItem('token', res.token);
-          console.log(`###fn LOGIN ${res.token}`);
           return res.token;
         })
         .catch((err) => console.log(err));
@@ -46,7 +45,8 @@ class Auth {
                 "Content-Type": "application/json",
                 "Authorization" : `Bearer ${token}`,
             }
-        }).then((res) => this._getResponseStatus(res));
+        }).then((res) => this._getResponseStatus(res))
+        .catch((err) => console.log(err));
     }
 }
 
