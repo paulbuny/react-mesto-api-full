@@ -4,3 +4,4 @@
 /backend/node_modules
 /backend/*.log
 /backend/.env
+/frontend/build

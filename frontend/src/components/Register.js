@@ -1,9 +1,13 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 
 function Register (props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+      document.title = 'Mesto - Register';
+    }, []);
 
     function handleChangeEmail(e) {
         setEmail(e.target.value);

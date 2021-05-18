@@ -126,7 +126,7 @@ class Api {
 }
 
 const api = new Api({
-  url: 'http://localhost:3005',
+  url: 'https://api.coconut.nomoredomains.club',
 });
 
 export default api

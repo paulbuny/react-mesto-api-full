@@ -50,6 +50,6 @@ class Auth {
     }
 }
 
-const auth = new Auth('http://localhost:3005');
+const auth = new Auth('https://api.coconut.nomoredomains.club');
 
 export default auth;

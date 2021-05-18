@@ -1,9 +1,13 @@
-import {useContext} from 'react';
+import {useContext, useEffect} from 'react';
 import Card from "./Card";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 
 function Main(props) {
     const currentUser = useContext(CurrentUserContext);
+
+    useEffect(() => {
+      document.title = 'Mesto';
+    }, []);
 
     return (
 

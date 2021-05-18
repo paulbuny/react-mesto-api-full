@@ -1,8 +1,12 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 function Login (props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+      document.title = 'Mesto - Login';
+    }, []);
 
     function handleChangeEmail(e) {
         setEmail(e.target.value);

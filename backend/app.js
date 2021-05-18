@@ -22,7 +22,7 @@ const {
 const NotFoundErr = require('./errors/NotFoundErr');
 
 // Установка порта сервера по умолчанию
-const { PORT = 3005 } = process.env;
+const { PORT = 3000 } = process.env;
 const app = express();
 
 // Подключение к БД
@@ -38,6 +38,12 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 app.use(reqLogger);
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post('/signin', loginValidation, login);
 app.post('/signup', userDataValidation, createUser);
