@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const cors = require('cors');
+const rateLimit = require('express-rate-limit');
 const auth = require('./middlewares/auth');
 const { reqLogger, errLogger } = require('./middlewares/logger');
 
@@ -25,6 +26,12 @@ const NotFoundErr = require('./errors/NotFoundErr');
 const { PORT = 3000 } = process.env;
 const app = express();
 
+// Параметры ограничения запросов
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+});
+
 // Подключение к БД
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
@@ -38,6 +45,7 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 app.use(reqLogger);
+app.use(limiter);
 
 app.get('/crash-test', () => {
   setTimeout(() => {
